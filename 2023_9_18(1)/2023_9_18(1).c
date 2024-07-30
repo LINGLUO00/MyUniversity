@@ -1,35 +1,35 @@
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 //1.√∞≈›≈≈–Ú
-//void bubble_sort(int arr[],int sz)
-//{
-//	int i = 0;
-//	for (i = 0; i < sz; i++)
-//	{
-//		int j = 0;
-//		for (j = 0; j < sz - 1; j++)
-//		{
-//			if (arr[j] > arr[j + 1])
-//			{
-//				int tmp = arr[j];
-//				arr[j] = arr[j + 1];
-//				arr[j + 1] = tmp;
-//			}
-//		}
-//	}
-//}
-//int main()
-//{
-//	int arr[10] = { 1,2,5,4,10,6,9,7,8,3 };
-//	int sz = sizeof(arr) / sizeof(arr[0]);
-//	bubble_sort(arr, sz);
-//	int i = 0;
-//	for (i = 0; i < 10; i++)
-//	{
-//		printf("%d ", arr[i]);
-//	}
-//	return 0;
-//}
+void bubble_sort(int arr[],int sz)
+{
+	int i = 0;
+	for (i = 0; i < sz; i++)
+	{
+		int j = 0;
+		for (j = 0; j < sz - 1; j++)
+		{
+			if (arr[j] > arr[j + 1])
+			{
+				int tmp = arr[j];
+				arr[j] = arr[j + 1];
+				arr[j + 1] = tmp;
+			}
+		}
+	}
+}
+int main()
+{
+	int arr[12] = { 25,23,50,43,45,28,10,15,13,50,22,30 };
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	bubble_sort(arr, sz);
+	int i = 0;
+	for (i = 0; i < 10; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	return 0;
+}
 
 
 

@@ -23,52 +23,54 @@
 //}
 
 //2.用函数实现二分查找
-//int search(int arr[10], int k, int sz, int* num)
-//{
-//	int left = 0;
-//	int right = sz-1;
-//	int mid = (right - left) / 2 + left;
-//	int i = 0;
-//	for (i = 0; i < sz ; i++)
-//	{
-//		if (k < arr[mid])
-//		{
-//			right = mid - 1;
-//			mid = (right - left) / 2 + left;
-//		}
-//		if (k > arr[mid])
-//		{
-//			left = mid + 1;
-//			mid = (right - left) / 2 + left;
-//		}
-//		if (k == arr[mid])
-//		{
-//			*num = mid;
-//			return 1;
-//			break;
-//		}
-//		
-//		
-//	}
-//
-//}
-//int main()
-//{
-//	int arr[10] = { 1,2,3,4,5,6,7,8,9,10 };
-//	int k = 0;
-//	int num = 0;
-//	scanf("%d", &k);
-//	int sz = sizeof(arr) / sizeof(arr[0]);
-//	int ret = search(arr, k, sz, &num);
-//	if (ret == 1)
-//	{
-//		printf("找到了，下标是：%d",num);
-//	}
-//	else
-//	{
-//		printf("没找到");
-//	}
-//	return 0;
-//}
+int search(int arr[10], int k, int sz, int* num)
+{
+	int left = 0;
+	int right = sz-1;
+	int mid = (right - left) / 2 + left;
+	int i = 0;
+	int count = 1;
+	for (i = 0; i < sz ; i++)
+	{
+		if (k < arr[mid])
+		{
+			right = mid - 1;
+			mid = (right - left) / 2 + left;
+		}
+		if (k > arr[mid])
+		{
+			left = mid + 1;
+			mid = (right - left) / 2 + left;
+		}
+		if (k == arr[mid])
+		{
+			*num = mid;
+			printf("%d\n", count);
+			return 1;
+			break;
+		}
+		count++;
+		
+	}
+
+}
+int main()
+{
+	int arr[11] = { 5,7,20,33,44,46,48,99,101,102,105 };
+	int k = 0;
+	int num = 0;
+	scanf("%d", &k);
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	int ret = search(arr, k, sz, &num);
+	if (ret == 1)
+	{
+		printf("找到了，下标是：%d",num);
+	}
+	else
+	{
+		printf("没找到");
+	}
+	return 0;
+}
 
 
