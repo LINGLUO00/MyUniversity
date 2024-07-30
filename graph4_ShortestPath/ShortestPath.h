@@ -185,7 +185,123 @@ namespace matrix
 		}
 
 
+		bool BellmanFord(const V& src, vector<W>& dist, vector<int>& pPath)
+		{
+			size_t srci = GetVertexIndex(src);
+			size_t n = _vertexs.size();
+			dist.resize(n, MAX_W);
+			pPath.resize(n, -1);
+			dist[srci] = W();
 
+			for (size_t k = 0; k < n; k++)
+			{
+				bool update = false;
+				for (size_t i = 0; i < n; i++)
+				{
+					for (size_t j = 0; j < n; j++)
+					{
+						if (_matrix[i][j] != MAX_W && dist[i] + _matrix[i][j] < dist[j])
+						{
+							update = true;
+							cout << _vertexs[i] << "->" << _vertexs[j] << ":" << _matrix[i][j] << endl;
+							dist[j] = dist[i] + _matrix[i][j];
+							pPath[j] = i;
+						}
+					}
+				}
+				if (update == false)
+					break;
+			}
+			//还能更新就是带负权回路
+			for (size_t i = 0; i < n; ++i)
+			{
+				for (size_t j = 0; j < n; ++j)
+				{
+					// srci -> i + i ->j
+					if (_matrix[i][j] != MAX_W && dist[i] + _matrix[i][j] < dist[j])
+					{
+						return false;
+					}
+				}
+			}
+			return true;
+		}
+
+		void FloydWarshall(vector<vector<W>>& vvDist, vector<vector<int>>& vvpPath)
+		{
+			size_t n = _vertexs.size();
+			vvDist.resize(n);
+			vvpPath.resize(n);
+			for (size_t i = 0; i < n; i++)
+			{
+				vvDist[i].resize(n, MAX_W);
+				vvpPath[i].resize(n, -1);
+			}
+			//update directly connected edge
+			for (size_t i = 0; i < n; i++)
+			{
+				for (size_t j = 0; j < n; j++)
+				{
+					if (_matrix[i][j] != MAX_W)
+					{
+						vvDist[i][j] = _matrix[i][j];
+						vvpPath[i][j] = i;
+					}
+					if (i == j)
+					{
+						vvDist[i][j] = W();
+
+					}
+				}
+			}
+
+			for (size_t k = 0; k < n; k++)
+			{
+				for (size_t i = 0; i < n; i++)
+				{
+					for (size_t j = 0; j < n; j++)
+					{
+						if (vvDist[i][k] != MAX_W && vvDist[k][j] != MAX_W && vvDist[i][k] + vvDist[k][j] < vvDist[i][j])
+						{
+							vvDist[i][j] = vvDist[i][k] + vvDist[k][j];
+							vvpPath[i][j] = vvpPath[k][j];
+						}
+					}
+				}
+				// 打印权值和路径矩阵观察数据
+				for (size_t i = 0; i < n; ++i)
+				{
+					for (size_t j = 0; j < n; ++j)
+					{
+						if (vvDist[i][j] == MAX_W)
+						{
+							//cout << "*" << " ";
+							printf("%3c", '*');
+						}
+						else
+						{
+							//cout << vvDist[i][j] << " ";
+							printf("%3d", vvDist[i][j]);
+						}
+					}
+					cout << endl;
+				}
+				cout << endl;
+
+				for (size_t i = 0; i < n; ++i)
+				{
+					for (size_t j = 0; j < n; ++j)
+					{
+						//cout << vvParentPath[i][j] << " ";
+						printf("%3d", vvpPath[i][j]);
+					}
+					cout << endl;
+				}
+				cout << "=================================" << endl;
+			}
+
+
+		}
 	private:
 		vector<V> _vertexs;			// 顶点集合
 		map<V, int> _indexMap;		// 顶点映射下标
